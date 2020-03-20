@@ -1,9 +1,9 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.xz"
-  version "4.2.2-with-options" # to distinguish from homebrew-core's ffmpeg
-  sha256 "cb754255ab0ee2ea5f66f8850e1bd6ad5cac1cd855d0a2f4990fb8c668b0d29c"
+  url "https://ffmpeg.org/releases/ffmpeg-4.1.4.tar.xz"
+  version "4.1.4-with-MJJ-NDI" # to distinguish from homebrew-core's ffmpeg
+  sha256 "f1f049a82fcfbf156564e73a3935d7e750891fab2abf302e735104fd4050a7e1"
   revision 1
   head "https://github.com/FFmpeg/FFmpeg.git"
 
@@ -29,6 +29,7 @@ class Ffmpeg < Formula
   option "with-srt", "Enable SRT library"
   option "with-libvmaf", "Enable libvmaf scoring library"
   option "with-libxml2", "Enable libxml2 library"
+  option "with-ndi", "Enable Newtek NDI library"
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
@@ -153,12 +154,18 @@ class Ffmpeg < Formula
 
     # These librares are GPL-incompatible, and require ffmpeg be built with
     # the "--enable-nonfree" flag, which produces unredistributable libraries
-    args << "--enable-nonfree" if build.with?("decklink") || build.with?("fdk-aac") || build.with?("openssl")
+    args << "--enable-nonfree" if build.with?("decklink") || build.with?("fdk-aac") || build.with?("openssl") || build.with?("ndi")
 
     if build.with? "decklink"
       args << "--enable-decklink"
       args << "--extra-cflags=-I#{HOMEBREW_PREFIX}/include"
       args << "--extra-ldflags=-L#{HOMEBREW_PREFIX}/include"
+    end
+
+    if build.with? "ndi"
+      args << "--enable-libndi_newtek"
+      args << "--extra-cflags=-I/Users/moosey/Documents/NDI SDK/NDI SDK for Apple/include"
+      args << "extra-ldflags=-L/Users/moosey/Documents/NDI SDK/NDI SDK for Apple/include"
     end
 
     if build.with?("opencore-amr") || build.with?("libvmaf")
