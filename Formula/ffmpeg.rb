@@ -165,7 +165,7 @@ class Ffmpeg < Formula
     if build.with? "ndi"
       args << "--enable-libndi_newtek"
       args << "--extra-cflags=-I/Users/moosey/Documents/NDI_SDK/NDI_SDK_for_Apple/include"
-      args << "--extra-ldflags=-L/Users/moosey/Documents/NDI_SDK/NDI_SDK_for_Apple/include"
+      args << "--extra-ldflags=-L/Users/moosey/Documents/NDI_SDK/NDI_SDK_for_Apple/lib/x64"
     end
 
     if build.with?("opencore-amr") || build.with?("libvmaf")
@@ -178,7 +178,7 @@ class Ffmpeg < Formula
     end
 
     system "./configure", *args
-    system "make", "install -v"
+    system "make", "install"
 
     # Build and install additional FFmpeg tools
     system "make", "alltools"
