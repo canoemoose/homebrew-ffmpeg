@@ -178,7 +178,7 @@ class Ffmpeg < Formula
     end
 
     system "./configure", *args
-    system "make", "install"
+    system "make", "install -v"
 
     # Build and install additional FFmpeg tools
     system "make", "alltools"
