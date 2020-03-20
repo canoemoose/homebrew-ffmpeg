@@ -164,8 +164,8 @@ class Ffmpeg < Formula
 
     if build.with? "ndi"
       args << "--enable-libndi_newtek"
-      args << "--extra-cflags=-I/Users/moosey/Documents/NDI\ SDK/NDI\ SDK\ for\ Apple/include"
-      args << "extra-ldflags=-L/Users/moosey/Documents/NDI\ SDK/NDI\ SDK\ for\ Apple/include"
+      args << "--extra-cflags=-I/Users/moosey/Documents/NDI_SDK/NDI_SDK_for_Apple/include"
+      args << "extra-ldflags=-L/Users/moosey/Documents/NDI_SDK/NDI_SDK_for_Apple/include"
     end
 
     if build.with?("opencore-amr") || build.with?("libvmaf")
